@@ -13,7 +13,7 @@ Aplikasi Manajemen Anggota Koperasi adalah aplikasi yang tujuannya dibuat untuk 
 koperasi, berikut beberapa fitur pada aplikasi:
 
 - Mempunyai fitur login untuk keamanan user level
-- Super Admin dapat mengelola Front Office user
+- Super Admin dapat mengelola dan memantau seluruh user level
 - Front Office dapat mempunyai anggota dan mengelola datanya
 - anggota dapat melihat data milik pribadi
 - terdapat fitur pencarian
