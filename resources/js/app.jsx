@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Login from "./pages/login";
 
 function App() {
-    return (
-        <h1>Tes Laravel dan react</h1>
-    );
+    return <Login />;
 }
 
 ReactDOM.createRoot(document.getElementById("app")).render(
