@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function Sidebar({arah,isi}) {
+function Sidebar({arah,children}) {
     return (
         <aside className="w-64 bg-white border-r min-h-screen">
             <div className="p-5">
@@ -10,7 +10,7 @@ function Sidebar({arah,isi}) {
                 </h2>
                 <nav className="space-y-2">
                     <NavLink to={arah} className="block p-3 rounded-lg hover:bg-blue-100">
-                        {isi}
+                        {children}
                     </NavLink>
                 </nav>
             </div>

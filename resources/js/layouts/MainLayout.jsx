@@ -4,7 +4,7 @@ import Sidebar from "../components/layout/Sidebar";
 import Content from "../components/layout/Content";
 
 
-function MainLayout({ isi }) {
+function MainLayout({ children }) {
 
     return (
         <div className="min-h-screen">
@@ -12,7 +12,7 @@ function MainLayout({ isi }) {
             <div className="flex">
                 <Sidebar />
                 <Content >
-                    {isi}
+                    {children}
                 </Content>
             </div>
         </div>
