@@ -5,7 +5,8 @@ import Table from "../../components/ui/Table";
 
 function Dashboard() {
     return (
-        <MainLayout />
+        <h1>Tes untuk DashBoard</h1>
+        // <MainLayout />
     );
 }
 export default Dashboard;

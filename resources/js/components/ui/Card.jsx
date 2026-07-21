@@ -1,10 +1,10 @@
 import React from "react";
 
-function Card({isi}) {
+function Card({children}) {
     return (
 
         <div className="bg-white rounded-2xl shadow-lg p-8">
-            {isi}
+            {children}
         </div>
     );
 

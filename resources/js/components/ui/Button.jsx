@@ -1,7 +1,7 @@
 import React from "react";
 
 function Button({
-    isi,
+    children,
     ...props
 }) {
     return (
@@ -19,7 +19,7 @@ function Button({
                 font-semibold
             "
         >
-            {isi}
+            {children}
         </button>
     );
 }
