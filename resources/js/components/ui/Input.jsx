@@ -1,23 +1,22 @@
 import React from "react";
 
-function Input({
-    type = "text",
-    placeholder = "",
-    value,
-    onChange,
-    name,
-    disabled = false,
-    className=""
-}) {
+function Input(props) {
     return (
         <input
-            type={type}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-            name={name}
-            disabled={disabled}
-            className={`input ${className}`}
+            {...props}
+            className="
+                w-full
+                rounded-lg
+                border
+                border-gray-300
+                px-4
+                py-3
+                mt-1
+                focus:outline-none
+                focus:ring-2
+                focus:ring-blue-500
+                transition
+            "
         />
     );
 }

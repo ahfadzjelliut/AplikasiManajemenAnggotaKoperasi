@@ -1,13 +1,21 @@
-import React from "react";
-import Sidebar from "../components/layout/Sidebar";
+import React, { useState } from "react";
 import Navbar from "../components/layout/Navbar";
+import Sidebar from "../components/layout/Sidebar";
+import Content from "../components/layout/Content";
 
-function MainLayout() {
+
+function MainLayout({ isi }) {
+
     return (
-        <>
-            <Sidebar />
+        <div className="min-h-screen">
             <Navbar />
-        </>
+            <div className="flex">
+                <Sidebar />
+                <Content >
+                    {isi}
+                </Content>
+            </div>
+        </div>
     );
 }
 export default MainLayout;

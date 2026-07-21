@@ -2,16 +2,22 @@ import React from "react";
 
 function Button({
     isi,
-    type = "button",
-    variantColor = "primary",
-    size = "md", disabled = false,
-    onClick, classname="" }) {
+    ...props
+}) {
     return (
         <button
-            type={type}
-            disabled={disabled}
-            onClick={onClick}
-            className={`btn btn-${variantColor} btn-${size} ${classname}`}
+            {...props}
+            className="
+                w-full
+                bg-blue-600
+                hover:bg-blue-700
+                active:scale-95
+                transition
+                text-white
+                py-3
+                rounded-lg
+                font-semibold
+            "
         >
             {isi}
         </button>
