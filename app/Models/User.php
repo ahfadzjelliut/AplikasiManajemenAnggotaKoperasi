@@ -22,11 +22,17 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
+    protected $table = 'user';
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function member()
+    {
+        return $this->hasOne(Member::class);
     }
 }
