@@ -7,6 +7,7 @@ use App\Models\User;
 
 class Member extends Model
 {
+    public $timestamps = false;
     protected $table = 'anggota';
     protected $fillable = [
         'user_id',

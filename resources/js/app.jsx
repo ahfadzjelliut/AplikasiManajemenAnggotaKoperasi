@@ -6,6 +6,8 @@ import Login from "./pages/auth/Login";
 
 import TambahFO from "./components/feature/superadmin/TambahFO";
 import FOList from "./components/feature/superadmin/FOList";
+import UbahFO from "./components/feature/superadmin/UbahFO";
+import AnggotaFO from "./components/feature/superadmin/AnggotaFO";
 
 function App() {
     return (
@@ -26,6 +28,14 @@ function App() {
                 <Route
                     path="fo/daftar"
                     element={<FOList />}
+                />
+                <Route
+                    path="fo/ubah/:id"
+                    element={<UbahFO />}
+                />
+                <Route
+                    path="fo/anggota/:id"
+                    element={<AnggotaFO />}
                 />
                 </Route>
             </Routes>

@@ -34,7 +34,7 @@ const data = [
     },
 ];
 
-function FOList() {
+function AnggotaFO() {
     const nav = useNavigate();
     return (
         <div className="space-y-6">
@@ -43,27 +43,15 @@ function FOList() {
                     Daftar Anggota
                 </h1>
                 <SearchBar
-                    placeholder="Cari Fo..."
+                    placeholder="Cari anggota..."
                 />
             </div>
+            <Button onClick={()=>nav('/dashboard/fo/daftar')}>Kembali</Button>
             <Table
                 columns={columns}
                 data={data}
-                actions={(item) => (
-                    <div className="flex gap-2">
-                        <Button onClick={()=>nav(`/dashboard/fo/ubah/${item.id}`)}>
-                            Ubah
-                        </Button>
-                        <Button onClick={()=>handleDelete(item.id)}>
-                            Hapus
-                        </Button>
-                        <Button onClick={()=>nav(`/dashboard/fo/anggota/${item.id}`)}>
-                            Anggota
-                        </Button>
-                    </div>
-                )}
             />
         </div>
         );
 }
-export default FOList;
+export default AnggotaFO;

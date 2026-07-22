@@ -4,8 +4,11 @@ import Card from "../../ui/Card";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import Radio from "../../ui/Radio";
+import { useNavigate, useParams } from "react-router-dom";
 
 function UbahFO() {
+    const { id } = useParams();
+    const nav = useNavigate();
     const [form, setForm] = useState({
         nama: "",
         email:"",
@@ -26,9 +29,10 @@ function UbahFO() {
     return (
         <Card>
             <h1 className="text-2xl font-bold mb-6">
-                Tambah FO
+                Ubah FO
             </h1>
             <form className="space-y-5" onSubmit={handleSubmit}>
+                <p>ID Anggota : {id}</p>
                 <div>
                     <label>Nama</label>
                     <Input
@@ -63,7 +67,6 @@ function UbahFO() {
                     />
                 </div>
                 <div>
-                    <label>Status</label>
                     <Radio
                         label="Status"
                         name="status"
@@ -84,11 +87,13 @@ function UbahFO() {
                     />
                 </div>
                 <div className="flex justify-end">
-                    <Button type="button">
-                        Batal
+
+                    <Button type="button" onClick={()=>nav('/dashboard/fo/daftar')}>
+                            Batal
                     </Button>
+
                     <Button type="submit">
-                        Tambah
+                        Perbarui
                     </Button>
                     </div>
                 </form>

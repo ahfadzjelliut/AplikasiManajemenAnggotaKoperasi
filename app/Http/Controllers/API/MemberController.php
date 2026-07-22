@@ -5,61 +5,141 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class MemberController extends Controller
 {
     public function index()
     {
-        $member = Member::all();
-
-        return response()=>->json([
-            'success'=> true,
-            'message'=>'Data anggota berhasil diambil.',
-            'data'=> $member
-        ])
+        $member = Member::with('user')->get();
+        return response()->json($member);
     }
+
     public function store(Request $request)
     {
         $request->validate([
-            'nik'=>'required|unique:anggota',
-            'alamat'=>'required',
-            'nohp'=>'required'
+            'nama' => 'required',
+            'email' => 'required|email|unique:user,email',
+            'password' => 'required|min:8',
+
+            'nik' => 'required|unique:anggota,nik',
+            'tgl_lahir' => 'required',
+            'alamat' => 'required',
+            'nohp' => 'required'
         ]);
-        $member = Member::create([
-            'nik' => $request->nik,
-            'no_anggota' => $request->no_anggota,
-            'tgl_lahir' => $request->tgl_lahir,
-            'alamat' => $request->alamat,
-            'nohp' => $request->nohp,
-            'owner_fo' => $request->owner_fo,
-        ]);
-        return response()->json([
-            'success' => true,
-            'message' => 'Anggota berhasil ditambahkan.',
-            'data' => $member
-        ], 201);
+        DB::beginTransaction();
+        try {
+            $user = User::create([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'member',
+                'status' => 'aktif'
+            ]);
+            $member = Member::create([
+                'user_id' => $user->id,
+                'no_anggota' => $this->generateNoAnggota(),
+                'nik' => $request->nik,
+                'tgl_lahir' => $request->tgl_lahir,
+                'alamat' => $request->alamat,
+                'nohp' => $request->nohp,
+
+                'owner_fo' => 1
+            ]);
+            DB::commit();
+            return response()->json([
+                "message"=>"Anggota berhasil ditambahkan",
+                "user"=>$user,
+                "member"=>$member
+            ],201);
+        } catch (\Exception $e){
+            DB::rollBack();
+            return response()->json([
+                "message"=>$e->getMessage()
+            ],500);
+        }
+    }
+    private function generateNoAnggota()
+    {
+        $last = Member::latest('id')->first();
+
+        if(!$last){
+            return "AG1";
+        }
+
+        $angka = substr($last->no_anggota,2);
+
+        return "AG".($angka+1);
     }
     public function show($id)
     {
-        $member = Member::find($id);
+        $member = Member::with('user')->find($id);
 
-        if(!member){
+        if (!$member) {
             return response()->json([
-            'success' => false,
-            'message' => 'Data tidak ditemukan.'
-        ], 404);
+                "message" => "Data tidak ditemukan"
+            ],404);
         }
-        return response()->json([
-        'success' => true,
-        'data' => $member
-        ]);
-    }
-    public function update()
-    {
 
+        return response()->json($member);
     }
-    public function destroy()
-    {
 
+    public function update(Request $request, $id)
+    {
+        $member = Member::find($id);
+        if(!$member){
+            return response()->json([
+                "message"=>"Data tidak ditemukan"
+            ],404);
+        }
+        $user = User::find($member->user_id);
+        DB::beginTransaction();
+        try{
+            $user->update([
+                'nama'=>$request->nama,
+                'email'=>$request->email,
+            ]);
+            $member->update([
+                'nik'=>$request->nik,
+                'tgl_lahir'=>$request->tgl_lahir,
+                'alamat'=>$request->alamat,
+                'nohp'=>$request->nohp,
+            ]);
+            DB::commit();
+            return response()->json([
+                "message"=>"Data berhasil diupdate"
+            ]);
+        }catch(\Exception $e){
+            DB::rollBack();
+            return response()->json([
+                "message"=>$e->getMessage()
+            ],500);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $member = Member::find($id);
+        if(!$member){
+            return response()->json([
+                "message"=>"Data tidak ditemukan"
+            ],404);
+        }
+        DB::beginTransaction();
+        try{
+            User::find($member->user_id)->delete();
+            $member->delete();
+            DB::commit();
+            return response()->json([
+                "message"=>"Data berhasil dihapus"
+            ]);
+        }catch(\Exception $e){
+            DB::rollBack();
+            return response()->json([
+                "message"=>$e->getMessage()
+            ],500);
+        }
     }
 }
