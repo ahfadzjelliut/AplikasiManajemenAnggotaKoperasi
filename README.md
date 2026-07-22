@@ -22,6 +22,7 @@ npm install
 -download AplikasiManajemenAplikasi.zip yang ada di github
 -taruh di folder "../laragon/www/" tempat beberapa running  
 -kemudian ekstrak isi file AplikasiManajemenAplikasi.zip
+-database terletak di folder DB bisa diimport melalui phpmyadmin menu import
 
 ## Cara Running Aplikasi
 
@@ -43,8 +44,20 @@ npm run dev
 
 ## Note
 
-ada beberapa fitur eror :
+Fitur yang berfungsi:
+
+-menampilkan fo pada user superadmin
+
+-menambah data fo
+
+-menghapus data fo
+
+-dan sebagainya
+
+Ada beberapa fitur eror :
 
 -seperti tidak bisa mengambil data anggota sesuai fo
 
 -ubah data diri anggota masih belum berfungsi dengan baik
+
+-dan sebagainya
