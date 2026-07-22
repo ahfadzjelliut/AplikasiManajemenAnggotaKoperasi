@@ -37,12 +37,12 @@ function Sidebar({ role,sidebarOpen,setSidebarOpen }) {
                     path: "/dashboard"
                 },
                 {
-                    title: "Data Diri",
-                    path: "/dashboard/data-diri"
+                    title: "Ubah Data Diri",
+                    path: "/dashboard/diri/ubah"
                 },
                 {
                     title: "Data Anggota",
-                    path: "/dashboard/anggota-fo"
+                    path: "/dashboard/diri/anggota-tim"
                 }
             ]
         };

@@ -1,8 +1,9 @@
-import react from "react";
+import { useEffect,useState } from "react";
 import Table from "../../ui/Table";
 import Button from "../../ui/Button";
 import SearchBar from "../../ui/SearchBar";
 import { useNavigate } from "react-router-dom";
+import { getFOs,deleteFO } from "../../../services/FOService";
 
 const columns = [
     {
@@ -14,33 +15,57 @@ const columns = [
         label: "Email",
     },
     {
-        key: "telepon",
-        label: "Telepon",
-    },
-];
-
-const data = [
-    {
-        id: 1,
-        nama: "Ahmad",
-        email: "ahmad@gmail.com",
-        telepon: "08123456789",
-    },
-    {
-        id: 2,
-        nama: "Budi",
-        email: "budi@gmail.com",
-        telepon: "08987654321",
-    },
+        key: "status",
+        label:"Status",
+    }
 ];
 
 function FOList() {
     const nav = useNavigate();
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        loadFO();
+    }, []);
+
+    const loadFO = async () => {
+        try {
+            const response = await getFOs();
+            setData(response.data ?? response);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm(
+            "Apakah Anda yakin ingin menghapus FO ini?"
+        );
+        if (!confirmDelete) return;
+        try {
+            await deleteFO(id);
+            alert("FO berhasil dihapus.");
+            nav("/dashboard");
+            loadFO();
+        } catch (error) {
+            console.error(error);
+            alert("Gagal menghapus FO.");
+        }
+    };
+        if (loading) {
+                return (
+                    <div className="text-center py-10">
+                        Memuat data...
+                    </div>
+                );
+            }
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl font-bold">
-                    Daftar Anggota
+                    Daftar Front Officer
                 </h1>
                 <SearchBar
                     placeholder="Cari Fo..."

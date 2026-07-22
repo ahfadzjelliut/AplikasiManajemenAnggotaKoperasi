@@ -28,6 +28,17 @@ class MemberController extends Controller
             'tgl_lahir' => 'required',
             'alamat' => 'required',
             'nohp' => 'required'
+        ],[
+            'nama.required' => 'Nama wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'nik.unique' => 'NIK sudah digunakan.',
+            'tgl_lahir.required' => 'Tanggal lahir perlu diisi.',
+            'alamat.required' => 'Alamat perlu diisi.',
+            'nohp.required' => 'Nomor HP perlu diisi.',
         ]);
         DB::beginTransaction();
         try {
@@ -80,10 +91,18 @@ class MemberController extends Controller
         if (!$member) {
             return response()->json([
                 "message" => "Data tidak ditemukan"
-            ],404);
+            ], 404);
         }
 
-        return response()->json($member);
+        return response()->json([
+            'id'         => $member->id,
+            'nama'       => $member->user->nama,
+            'email'      => $member->user->email,
+            'nik'        => $member->nik,
+            'tgl_lahir'  => $member->tgl_lahir,
+            'alamat'     => $member->alamat,
+            'nohp'       => $member->nohp,
+        ]);
     }
 
     public function update(Request $request, $id)

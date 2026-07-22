@@ -1,13 +1,13 @@
-import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getMember,updateMember } from "../../../services/memberService";
 import Card from "../../ui/Card";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import DateInput from "../../ui/DateInput";
-import { useNavigate } from "react-router-dom";
-import { createMember } from "../../../services/memberService";
+import { data, useNavigate, useParams } from "react-router-dom";
 
-function AnggotaForm() {
+function AnggotaUbah() {
+    const { id } = useParams();
     const nav = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
@@ -20,7 +20,27 @@ function AnggotaForm() {
         nohp:"",
 
     });
-
+    useEffect(() => {
+        loadMember();
+    }, []);
+    const loadMember = async () => {
+        try {
+            const response = await getMember(id);
+            setForm({
+                nama: data.nama ?? "",
+                email: data.email ?? "",
+                password: "",
+                nik: data.nik ?? "",
+                tgl_lahir: data.tgl_lahir ?? "",
+                alamat: data.alamat ?? "",
+                nohp: data.nohp ?? "",
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm((prev) => ({
@@ -32,26 +52,19 @@ function AnggotaForm() {
         e.preventDefault();
         setErrors({});
         try {
-                const response = await createMember(form);
-                console.log(response);
-                alert("Anggota berhasil ditambahkan");
-                nav("/dashboard");
-                setForm({
-                    nama: "",
-                    email: "",
-                    password: "",
-                    nik: "",
-                    tgl_lahir: "",
-                    alamat: "",
-                    nohp:"",
-                });
-            } catch (error) {
-                if (error.response?.status === 422) {
-                    setErrors(error.response.data.errors);
-                } else {
-                    alert("Terjadi kesalahan pada server.");
-                }
+            await updateMember(id, form);
+            alert("Data Anggota berhasil diperbarui.");
+            nav("/dashboard/anggota/daftar");
+        } catch (error) {
+            //console.error(error);
+            console.error(error.response);
+            console.error(error.response?.data);
+            if (error.response?.status === 422) {
+                setErrors(error.response.data.errors);
+            } else {
+                alert("Gagal memperbarui data.");
             }
+        }
     };
     return (
             <Card>
@@ -99,7 +112,6 @@ function AnggotaForm() {
                             placeholder="Password"
                             value={form.password}
                             onChange={handleChange}
-                            required
                         />
                         {errors.password && (
                             <p className="text-red-500 text-sm mt-1">
@@ -129,7 +141,6 @@ function AnggotaForm() {
                             name="tgl_lahir"
                             value={form.tgl_lahir}
                             onChange={handleChange}
-                            required
                     />
                     {errors.tgl_lahir && (
                         <p className="text-red-500 text-sm mt-1">
@@ -169,15 +180,15 @@ function AnggotaForm() {
                     )}
                     </div>
                     <div className="flex justify-end">
-                        <Button type="button" onClick={() => nav("/dashboard")}>
+                        <Button type="button" onClick={() => nav("/dashboard/anggota/daftar")}>
                             Batal
                         </Button>
                         <Button type="submit">
-                            Tambah
+                            Perbarui
                         </Button>
                         </div>
                     </form>
             </Card>
     );
 }
-export default AnggotaForm;
+export default AnggotaUbah;

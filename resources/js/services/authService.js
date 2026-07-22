@@ -1,10 +1,10 @@
 import api from "./api";
 
-export const login = async (email, password) => {
-    const response = await api.post("/login", {
-        email,
-        password,
-    });
-
+export const login = async (data) => {
+    const response = await api.post("/login", data);
     return response.data;
+};
+
+export const logout = () => {
+    localStorage.removeItem("user");
 };

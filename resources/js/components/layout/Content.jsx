@@ -19,7 +19,7 @@ function Content() {
                         mx-auto
                     "
                 >
-                    <Outlet />
+                    <Outlet  />
                 </div>
             </main>
         );

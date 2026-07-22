@@ -40,9 +40,9 @@ class DiriController extends Controller
 
         $request->validate([
             'alamat' => 'required',
-            'nohp' => 'required'
+            'nohp' => 'required',
 
-            'password' => 'nullable|min:8|confirmed'
+            'password' => 'nullable|min:8|confirmed',
         ]);
 
         $member->update([

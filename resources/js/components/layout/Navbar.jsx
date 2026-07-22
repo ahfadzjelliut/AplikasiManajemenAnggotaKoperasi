@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Navbar({role,sidebarOpen,setSidebarOpen}) {
+function Navbar({ role, sidebarOpen, setSidebarOpen }) {
+    const handleLogout = () => {
+
+        localStorage.removeItem("user");
+
+        nav("/");
+
+    };
     return (
         <nav className="sticky top-0 z-40 bg-blue-600 shadow text-white">
             <div className="flex items-center justify-between h-16 px-4 md:px-6">
@@ -26,8 +33,8 @@ function Navbar({role,sidebarOpen,setSidebarOpen}) {
                     <span className="hidden sm:block capitalize">
                         {role}
                     </span>
-                    <Link
-                        to="/"
+                    <Button
+                        onClick={handleLogout}
                         className="
                             bg-red-500
                             hover:bg-red-600
@@ -38,7 +45,7 @@ function Navbar({role,sidebarOpen,setSidebarOpen}) {
                         "
                     >
                         Logout
-                    </Link>
+                    </Button>
                 </div>
             </div>
         </nav>
