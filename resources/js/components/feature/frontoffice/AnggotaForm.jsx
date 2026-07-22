@@ -2,20 +2,14 @@ import React from "react";
 import Card from "../../ui/Card";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
-import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
-    const navigate = useNavigate();
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate("/dashboard");
-    }
+function AnggotaForm() {
     return (
         <Card>
             <h1 className="text-3xl font-bold text-center">
-                Login
+                Tambah Anggota
             </h1>
-            <form className="mt-8 space-y-5" onSubmit={handleSubmit}>
+            <div className="mt-8 space-y-5">
                 <div>
                     <label>Email</label>
                     <Input type="email" placeholder="Isi Email Anda"/>
@@ -25,8 +19,8 @@ function LoginForm() {
                     <Input type="password" placeholder="Password Anda" />
                 </div>
                 <Button>Login</Button>
-            </form>
+            </div>
             </Card>
     );
 }
-export default LoginForm;
+export default AnggotaForm;
