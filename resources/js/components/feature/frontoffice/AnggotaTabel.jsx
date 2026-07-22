@@ -94,7 +94,7 @@ function AnggotaTabel() {
                         <Button onClick={()=>nav(`/dashboard/anggota/ubah/${item.user_id}`)}>
                             Ubah
                         </Button>
-                        <Button onClick={()=>handleDelete(item.id)}>
+                        <Button className="bg-red-500 hover:bg-red-600" onClick={()=>handleDelete(item.id)}>
                             Hapus
                         </Button>
                     </div>

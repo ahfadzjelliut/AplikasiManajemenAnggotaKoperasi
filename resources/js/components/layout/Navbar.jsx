@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Button from "../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 function Navbar({ role, sidebarOpen, setSidebarOpen }) {
+    const nav = useNavigate();
     const handleLogout = () => {
 
         localStorage.removeItem("user");
