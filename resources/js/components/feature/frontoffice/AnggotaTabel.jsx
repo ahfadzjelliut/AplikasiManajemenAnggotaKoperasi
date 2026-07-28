@@ -3,7 +3,7 @@ import Table from "../../ui/Table";
 import Button from "../../ui/Button";
 import SearchBar from "../../ui/SearchBar";
 import { useNavigate } from "react-router-dom";
-import { getMembers,deleteMember } from "../../../services/memberService";
+import { getMember,deleteMember } from "../../../services/memberService";
 
 const columns = [
     {
@@ -38,6 +38,7 @@ const columns = [
 
 
 function AnggotaTabel() {
+    const user = JSON.parse(localStorage.getItem("user"));
     const nav = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -46,7 +47,7 @@ function AnggotaTabel() {
     }, []);
     const loadMember = async () => {
         try {
-            const response = await getMembers();
+            const response = await getMember(user.id);
             setData(response.data ?? response);
         } catch (error) {
             console.error(error);

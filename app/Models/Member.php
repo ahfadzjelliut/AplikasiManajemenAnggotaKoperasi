@@ -25,6 +25,6 @@ class Member extends Model
     }
     public function pembuat()
     {
-        return $this->belongsTo(User::class, 'owner_fo');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

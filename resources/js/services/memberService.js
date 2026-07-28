@@ -5,8 +5,12 @@ export const getMembers = async () => {
     return response.data;
 };
 
-export const getMember = async (id) => {
-    const response = await api.get(`/anggota/${id}`);
+export const getMember = async (ownerFo) => {
+    const response = await api.get(`/anggota/${id}`, {
+        params: {
+            ownerfo: ownerFo,
+        },
+    });
     return response.data;
 };
 

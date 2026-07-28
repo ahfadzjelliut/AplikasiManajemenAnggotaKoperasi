@@ -57,7 +57,7 @@ class MemberController extends Controller
                 'alamat' => $request->alamat,
                 'nohp' => $request->nohp,
 
-                'owner_fo' => 1
+                'owner_fo' => $request->ownerfo,
             ]);
             DB::commit();
             return response()->json([
@@ -84,9 +84,49 @@ class MemberController extends Controller
 
         return "AG".($angka+1);
     }
+    public function showingUser($id)
+    {
+        $member = Member::with(['anggota', 'fo'])->find($id);
+
+        if (!$member) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
+
+        return response()->json([
+            'id' => $member->id,
+
+            // Data akun anggota
+            'user' => [
+                'id' => $member->anggota->id,
+                'nama' => $member->anggota->nama,
+                'email' => $member->anggota->email,
+                'status' => $member->anggota->status,
+                'role' => $member->anggota->role,
+            ],
+
+            // Data member
+            'member' => [
+                'nik' => $member->nik,
+                'no_anggota' => $member->no_anggota,
+                'tgl_lahir' => $member->tgl_lahir,
+                'alamat' => $member->alamat,
+                'nohp' => $member->nohp,
+            ],
+
+            // Data FO yang memiliki anggota
+            'owner' => [
+                'id' => $member->fo->id,
+                'nama' => $member->fo->nama,
+                'email' => $member->fo->email,
+            ],
+        ]);
+    }
     public function show($id)
     {
         $member = Member::with('user')->find($id);
+
 
         if (!$member) {
             return response()->json([

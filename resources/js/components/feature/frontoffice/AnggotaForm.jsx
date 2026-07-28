@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { createMember } from "../../../services/memberService";
 
 function AnggotaForm() {
+    const user = JSON.parse(
+            localStorage.getItem("user")
+        );
     const nav = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
@@ -18,7 +21,6 @@ function AnggotaForm() {
         tgl_lahir: "",
         alamat: "",
         nohp:"",
-
     });
 
     const handleChange = (e) => {
@@ -43,7 +45,8 @@ function AnggotaForm() {
                     nik: "",
                     tgl_lahir: "",
                     alamat: "",
-                    nohp:"",
+                    nohp: "",
+                    ownerfo:user.id,
                 });
             } catch (error) {
                 if (error.response?.status === 422) {
