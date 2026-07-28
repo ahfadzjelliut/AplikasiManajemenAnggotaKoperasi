@@ -68,7 +68,8 @@ class MemberController extends Controller
         } catch (\Exception $e){
             DB::rollBack();
             return response()->json([
-                "message"=>$e->getMessage()
+                "message"=>$e->getMessage(),
+                "trace"=>$e->getTraceAsString(),
             ],500);
         }
     }

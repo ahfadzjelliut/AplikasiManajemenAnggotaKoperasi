@@ -51,8 +51,11 @@ function AnggotaForm() {
             } catch (error) {
                 if (error.response?.status === 422) {
                     setErrors(error.response.data.errors);
+
                 } else {
                     alert("Terjadi kesalahan pada server.");
+                    console.log(form);
+                    console.log(user);
                 }
             }
     };
