@@ -18,7 +18,7 @@ Route::delete('/fo/{id}', [FOController::class, 'destroy']);
 
 
 Route::get('/anggota',[MemberController::class,'index']);
-Route::get('/anggota/{id}',[MemberController::class,'show']);
+Route::get('/anggota/{id}',[MemberController::class,'showingUser']);
 Route::post('/anggota',[MemberController::class,'store']);
 Route::put('/anggota/{id}',[MemberController::class,'update']);
 Route::delete('/anggota/{id}',[MemberController::class,'destroy']);

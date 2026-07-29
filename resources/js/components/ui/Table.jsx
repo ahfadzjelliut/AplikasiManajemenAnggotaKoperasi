@@ -5,6 +5,9 @@ function Table({
     data = [],
     actions = null,
 }) {
+    const getValue = (obj, path) => {
+        return path.split(".").reduce((current, key) => current?.[key], obj);
+    };
     return (
         <div className="overflow-x-auto bg-white rounded-xl shadow">
             <table className="min-w-full border-collapse">
@@ -55,7 +58,7 @@ function Table({
                                         key={column.key}
                                         className="px-5 py-4"
                                     >
-                                        {item[column.key]}
+                                        {getValue(item,column.key)}
                                     </td>
 
                                 ))}

@@ -6,7 +6,7 @@ export const getMembers = async () => {
 };
 
 export const getMember = async (ownerFo) => {
-    const response = await api.get(`/anggota/${id}`, {
+    const response = await api.get(`/anggota/${ownerFo}`, {
         params: {
             ownerfo: ownerFo,
         },

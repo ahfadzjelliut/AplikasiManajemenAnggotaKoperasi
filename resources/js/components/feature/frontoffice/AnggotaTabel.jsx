@@ -7,11 +7,11 @@ import { getMember,deleteMember } from "../../../services/memberService";
 
 const columns = [
     {
-        key: "nama",
+        key: "anggota.nama",
         label: "Nama",
     },
     {
-        key: "email",
+        key: "anggota.email",
         label: "Email",
     },
     {
@@ -48,6 +48,8 @@ function AnggotaTabel() {
     const loadMember = async () => {
         try {
             const response = await getMember(user.id);
+            console.log("response =", response);
+            console.log("response.data =", response.data);
             setData(response.data ?? response);
         } catch (error) {
             console.error(error);

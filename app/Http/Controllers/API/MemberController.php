@@ -69,7 +69,6 @@ class MemberController extends Controller
             DB::rollBack();
             return response()->json([
                 "message"=>$e->getMessage(),
-                "trace"=>$e->getTraceAsString(),
             ],500);
         }
     }
@@ -87,64 +86,19 @@ class MemberController extends Controller
     }
     public function showingUser($id)
     {
-        $member = Member::with(['anggota', 'fo'])->find($id);
+        $members = Member::with(['anggota', 'fo'])
+        ->where('owner_fo',$id)
+        ->get();
 
-        if (!$member) {
+        if ($members->isEmpty()) {
             return response()->json([
                 'message' => 'Data tidak ditemukan.'
             ], 404);
         }
 
-        return response()->json([
-            'id' => $member->id,
-
-            // Data akun anggota
-            'user' => [
-                'id' => $member->anggota->id,
-                'nama' => $member->anggota->nama,
-                'email' => $member->anggota->email,
-                'status' => $member->anggota->status,
-                'role' => $member->anggota->role,
-            ],
-
-            // Data member
-            'member' => [
-                'nik' => $member->nik,
-                'no_anggota' => $member->no_anggota,
-                'tgl_lahir' => $member->tgl_lahir,
-                'alamat' => $member->alamat,
-                'nohp' => $member->nohp,
-            ],
-
-            // Data FO yang memiliki anggota
-            'owner' => [
-                'id' => $member->fo->id,
-                'nama' => $member->fo->nama,
-                'email' => $member->fo->email,
-            ],
-        ]);
+        return response()->json($members);
     }
-    public function show($id)
-    {
-        $member = Member::with('user')->find($id);
 
-
-        if (!$member) {
-            return response()->json([
-                "message" => "Data tidak ditemukan"
-            ], 404);
-        }
-
-        return response()->json([
-            'id'         => $member->id,
-            'nama'       => $member->user->nama,
-            'email'      => $member->user->email,
-            'nik'        => $member->nik,
-            'tgl_lahir'  => $member->tgl_lahir,
-            'alamat'     => $member->alamat,
-            'nohp'       => $member->nohp,
-        ]);
-    }
 
     public function update(Request $request, $id)
     {

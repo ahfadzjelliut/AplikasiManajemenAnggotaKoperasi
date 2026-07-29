@@ -4,7 +4,7 @@ import Card from "../../ui/Card";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import DateInput from "../../ui/DateInput";
-import { data, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 
 function AnggotaUbah() {
     const { id } = useParams();
@@ -27,13 +27,13 @@ function AnggotaUbah() {
         try {
             const response = await getMember(id);
             setForm({
-                nama: data.nama ?? "",
-                email: data.email ?? "",
+                nama: response.anggota.nama ?? "",
+                email: response.anggota.email ?? "",
                 password: "",
-                nik: data.nik ?? "",
-                tgl_lahir: data.tgl_lahir ?? "",
-                alamat: data.alamat ?? "",
-                nohp: data.nohp ?? "",
+                nik: response.nik ?? "",
+                tgl_lahir: response.tgl_lahir ?? "",
+                alamat: response.alamat ?? "",
+                nohp: response.nohp ?? "",
             });
         } catch (error) {
             console.error(error);
@@ -69,7 +69,7 @@ function AnggotaUbah() {
     return (
             <Card>
                 <h1 className="text-2xl font-bold mb-6">
-                    Tambah Anggota
+                    Ubah Anggota
                 </h1>
                 <form className="space-y-5" onSubmit={handleSubmit}>
                     <div>

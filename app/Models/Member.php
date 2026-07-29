@@ -19,12 +19,12 @@ class Member extends Model
         'owner_fo',
     ];
 
-    public function user()
+    public function anggota()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
-    public function pembuat()
+    public function fo()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'owner_fo');
     }
 }
