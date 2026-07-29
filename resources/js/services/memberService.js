@@ -14,6 +14,11 @@ export const getMember = async (ownerFo) => {
     return response.data;
 };
 
+export const getMemberChange = async (id) => {
+    const response = await api.get(`/anggota/ubahlihat/${id}`);
+    return response.data;
+};
+
 export const createMember = async (data) => {
     const response = await api.post("/anggota", data);
     return response.data;

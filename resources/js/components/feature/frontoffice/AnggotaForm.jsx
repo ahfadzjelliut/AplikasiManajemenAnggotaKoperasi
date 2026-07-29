@@ -20,7 +20,8 @@ function AnggotaForm() {
         nik: "",
         tgl_lahir: "",
         alamat: "",
-        nohp:"",
+        nohp: "",
+        ownerfo:user.id,
     });
 
     const handleChange = (e) => {

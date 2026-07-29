@@ -46,17 +46,16 @@ npm run dev
 
 Fitur yang berfungsi:
 
--menampilkan fo pada user superadmin
+-menampilkan jumlah fo dan anggota pada user superadmin
 
--menambah data fo
+-menambah,menghapus,mengubah,menampilkan data fo
 
--menghapus data fo
+-menambah,menghapus,mengubah, serta menampilkan anggota
 
 -dan sebagainya
 
 Ada beberapa fitur eror :
 
--seperti tidak bisa mengambil data anggota sesuai fo
 
 -ubah data diri anggota masih belum berfungsi dengan baik
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getMember,updateMember } from "../../../services/memberService";
+import {getMemberChange,updateMember } from "../../../services/memberService";
 import Card from "../../ui/Card";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
@@ -8,6 +8,7 @@ import {  useNavigate, useParams } from "react-router-dom";
 
 function AnggotaUbah() {
     const { id } = useParams();
+    const [loading, setLoading] = useState(true);
     const nav = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
@@ -24,8 +25,9 @@ function AnggotaUbah() {
         loadMember();
     }, []);
     const loadMember = async () => {
+        setLoading(true);
         try {
-            const response = await getMember(id);
+            const response = await getMemberChange(id);
             setForm({
                 nama: response.anggota.nama ?? "",
                 email: response.anggota.email ?? "",
@@ -63,6 +65,7 @@ function AnggotaUbah() {
                 setErrors(error.response.data.errors);
             } else {
                 alert("Gagal memperbarui data.");
+                console.log(id);
             }
         }
     };
@@ -77,7 +80,8 @@ function AnggotaUbah() {
                         <Input
                             name="nama"
                             type="text"
-                            placeholder="Nama Lengkap"
+                            placeholder={loading ? "Mengambil data..." : "Nama Lengkap"}
+                            disabled={loading}
                             value={form.nama}
                             onChange={handleChange}
                             required
@@ -93,8 +97,9 @@ function AnggotaUbah() {
                         <Input
                             name="email"
                             type="email"
-                            placeholder="Email"
+                            placeholder={loading ? "Mengambil data..." : "Email"}
                             value={form.email}
+                            disabled={loading}
                             onChange={handleChange}
                             required
                     />
@@ -110,6 +115,7 @@ function AnggotaUbah() {
                             name="password"
                             type="password"
                             placeholder="Password"
+                            disabled={loading}
                             value={form.password}
                             onChange={handleChange}
                         />
@@ -124,7 +130,8 @@ function AnggotaUbah() {
                         <Input
                             name="nik"
                             type="text"
-                            placeholder="NIK"
+                            placeholder={loading ? "Mengambil data..." : "NIK"}
+                            disabled={loading}
                             value={form.nik}
                             onChange={handleChange}
                             required
@@ -140,6 +147,7 @@ function AnggotaUbah() {
                         <DateInput
                             name="tgl_lahir"
                             value={form.tgl_lahir}
+                            disabled={loading}
                             onChange={handleChange}
                     />
                     {errors.tgl_lahir && (
@@ -153,7 +161,8 @@ function AnggotaUbah() {
                         <Input
                             name="alamat"
                             type="text"
-                            placeholder="Alamat"
+                            placeholder={loading ? "Mengambil data..." : "Alamat"}
+                            disabled={loading}
                             value={form.alamat}
                             onChange={handleChange}
                             required
@@ -168,7 +177,8 @@ function AnggotaUbah() {
                         <Input
                             name="nohp"
                             type="text"
-                            placeholder="Nomor HP"
+                            placeholder={loading ? "Mengambil data..." : "Nomor HP"}
+                            disabled={loading}
                             value={form.nohp}
                             onChange={handleChange}
                             required

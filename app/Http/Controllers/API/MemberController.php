@@ -102,7 +102,7 @@ class MemberController extends Controller
 
     public function update(Request $request, $id)
     {
-        $member = Member::find($id);
+        $member = Member::where('user_id',$id)->first();
         if(!$member){
             return response()->json([
                 "message"=>"Data tidak ditemukan"
@@ -143,8 +143,11 @@ class MemberController extends Controller
         }
         DB::beginTransaction();
         try{
-            User::find($member->user_id)->delete();
+            $user = User::find($member->user_id);
             $member->delete();
+            if($user){
+                $user->delete();
+            }
             DB::commit();
             return response()->json([
                 "message"=>"Data berhasil dihapus"
@@ -155,5 +158,18 @@ class MemberController extends Controller
                 "message"=>$e->getMessage()
             ],500);
         }
+    }
+
+    public function showChangeUser($id){
+        $member = Member::with(['anggota','fo'])
+        ->where('user_id',$id)
+        ->first();
+
+        if(!$member){
+            return response()->json([
+                "message"=>"data tidak ditemukan"
+            ],404);
+        }
+        return response()->json($member);
     }
 }
