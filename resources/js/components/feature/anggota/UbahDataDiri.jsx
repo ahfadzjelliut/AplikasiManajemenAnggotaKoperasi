@@ -1,11 +1,14 @@
-import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "../../ui/Card";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
+import { useNavigate } from "react-router-dom";
+import { getDiri,updateDiri } from "../../../services/diriService";
 
 function UbahDiri() {
-    const { id } = useParams();
+    const user = JSON.parse(localStorage.getItem('user'));
+    const id = user.id;
+    const [loading, setLoading] = useState(true);
     const nav = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
@@ -17,16 +20,13 @@ function UbahDiri() {
         loadMember();
     }, []);
     const loadMember = async () => {
+        setLoading(true);
         try {
-            const response = await getMember(id);
+            const response = await getDiri(id,form);
             setForm({
-                nama: data.nama ?? "",
-                email: data.email ?? "",
                 password: "",
-                nik: data.nik ?? "",
-                tgl_lahir: data.tgl_lahir ?? "",
-                alamat: data.alamat ?? "",
-                nohp: data.nohp ?? "",
+                alamat: response.alamat ?? "",
+                nohp: response.nohp ?? "",
             });
         } catch (error) {
             console.error(error);
@@ -45,7 +45,7 @@ function UbahDiri() {
         e.preventDefault();
         setErrors({});
         try {
-            await updateMember(id, form);
+            await updateDiri(id, form);
             alert("Data Diri berhasil diperbarui.");
             nav("/dashboard");
         } catch (error) {
@@ -70,8 +70,9 @@ function UbahDiri() {
                         <Input
                             name="alamat"
                             type="text"
-                            placeholder="Alamat"
+                            placeholder={loading ? "Mengambil data..." : "Alamat"}
                             value={form.alamat}
+                            disabled={loading}
                             onChange={handleChange}
                             required
                     />
@@ -86,8 +87,9 @@ function UbahDiri() {
                         <Input
                             name="nohp"
                             type="text"
-                            placeholder="Email"
+                            placeholder={loading ? "Mengambil data..." : "Nomor HP"}
                             value={form.nohp}
+                            disabled={loading}
                             onChange={handleChange}
                             required
                     />
@@ -102,8 +104,9 @@ function UbahDiri() {
                         <Input
                             name="password"
                             type="password"
-                            placeholder="Password"
+                            placeholder={loading ? "Mengambil data..." : "Password"}
                             value={form.password}
+                            disabled={loading}
                             onChange={handleChange}
                     />
                     {errors.password && (
@@ -113,7 +116,7 @@ function UbahDiri() {
                     )}
                     </div>
                     <div className="flex justify-end">
-                        <Button type="button">
+                        <Button type="button" onClick={()=>nav("/dashboard")}>
                             Batal
                         </Button>
                         <Button type="submit">

@@ -24,8 +24,8 @@ Route::post('/anggota',[MemberController::class,'store']);
 Route::put('/anggota/{id}',[MemberController::class,'update']);
 Route::delete('/anggota/{id}',[MemberController::class,'destroy']);
 
-Route::get('/diri', [DiriController::class, 'index']);
-Route::put('/diri', [DiriController::class, 'update']);
+Route::get('/diri/{id}', [DiriController::class, 'show']);
+Route::put('/diri/{id}', [DiriController::class, 'update']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);

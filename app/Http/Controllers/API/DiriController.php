@@ -6,14 +6,15 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Models\User;
 
 class DiriController extends Controller
 {
     // Melihat data diri sendiri
-    public function index(Request $request)
+    public function show($id)
     {
         $member = Member::with('user')
-            ->where('user_id', $request->user()->id)
+            ->where('user_id', $id)
             ->first();
 
         if (!$member) {
@@ -25,11 +26,12 @@ class DiriController extends Controller
         return response()->json($member);
     }
 
+
     // Mengubah data diri sendiri
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
         $member = Member::with('user')
-            ->where('user_id', $request->user()->id)
+            ->where('user_id', $id)
             ->first();
 
         if (!$member) {

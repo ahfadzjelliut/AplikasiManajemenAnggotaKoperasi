@@ -31,7 +31,7 @@ function Sidebar({ role,sidebarOpen,setSidebarOpen }) {
                     path: "/dashboard/anggota/daftar"
                 }
             ],
-            anggota: [
+            member: [
                 {
                     title: "Dashboard",
                     path: "/dashboard"
