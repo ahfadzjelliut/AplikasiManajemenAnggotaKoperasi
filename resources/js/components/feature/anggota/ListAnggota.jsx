@@ -1,7 +1,7 @@
 import { useEffect,useState } from "react";
 import Table from "../../ui/Table";
-import Button from "../../ui/Button";
 import SearchBar from "../../ui/SearchBar";
+import { getTim } from "../../../services/diriService";
 
 const columns = [
     {
@@ -36,7 +36,6 @@ const columns = [
 
 function ListAnggota() {
     const user = JSON.parse(localStorage.getItem("user"));
-    const nav = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -44,7 +43,7 @@ function ListAnggota() {
     }, []);
     const loadMember = async () => {
         try {
-            const response = await getMember(user.id);
+            const response = await getTim(user.id);
             console.log("response =", response);
             console.log("response.data =", response.data);
             setData(response.data ?? response);

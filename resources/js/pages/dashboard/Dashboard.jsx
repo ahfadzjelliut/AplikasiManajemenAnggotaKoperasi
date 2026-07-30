@@ -11,7 +11,7 @@ function Dashboard() {
             return null;
         }
     return (
-        <MainLayout role={user.role} />
+        <MainLayout nama={user.nama} role={user.role} />
     );
 }
 export default Dashboard;

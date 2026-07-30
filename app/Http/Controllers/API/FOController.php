@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -105,5 +106,13 @@ class FOController extends Controller
                     ->firstOrFail();
 
         return response()->json($fo);
+    }
+
+    public function showAnggotaFO($id){
+        $member = Member::with(['anggota','fo'])
+        ->where('owner_fo',$id)
+        ->get();
+
+        return response()->json($member);
     }
 }

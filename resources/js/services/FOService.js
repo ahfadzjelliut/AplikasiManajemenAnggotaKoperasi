@@ -11,6 +11,11 @@ export const getFO = async (id) => {
     return response.data;
 };
 
+export const getAnggotaFO = async (id) => {
+    const response = await api.get(`/fo/anggota/${id}`);
+    return response.data;
+};
+
 export const createFO = async (data) => {
     const response = await api.post("/fo", data);
     return response.data;

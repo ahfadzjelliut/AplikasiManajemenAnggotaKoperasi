@@ -26,6 +26,15 @@ class DiriController extends Controller
         return response()->json($member);
     }
 
+    public function showDiriTim($id){
+        $member = Member::where('user_id',$id)
+        ->first();
+        $team = Member::with('anggota')
+        ->where('owner_fo',$member->owner_fo)
+        ->get();
+
+        return response()->json($team);
+    }
 
     // Mengubah data diri sendiri
     public function update(Request $request,$id)

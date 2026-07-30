@@ -7,9 +7,12 @@ function Content() {
                 className="
                     flex-1
                     w-full
-                    p-4
+                    min-w-0
+                    p-6
                     md:p-6
+                    sm:p-0
                     overflow-x-auto
+                    overflow-y-auto
                 "
             >
                 <div
@@ -17,6 +20,7 @@ function Content() {
                         w-full
                         max-w-7xl
                         mx-auto
+                        min-w-0
                     "
                 >
                     <Outlet  />

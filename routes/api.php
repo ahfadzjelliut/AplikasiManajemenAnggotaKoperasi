@@ -12,6 +12,7 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/fo/{id}', [FOController::class, 'show']);
 Route::get('/fo', [FOController::class, 'index']);
+Route::get('/fo/anggota/{id}', [FOController::class, 'showAnggotaFO']);
 Route::post('/fo', [FOController::class, 'store']);
 Route::put('/fo/{id}', [FOController::class, 'update']);
 Route::delete('/fo/{id}', [FOController::class, 'destroy']);
@@ -25,6 +26,7 @@ Route::put('/anggota/{id}',[MemberController::class,'update']);
 Route::delete('/anggota/{id}',[MemberController::class,'destroy']);
 
 Route::get('/diri/{id}', [DiriController::class, 'show']);
+Route::get('/diri/tim/{id}', [DiriController::class, 'showDiriTim']);
 Route::put('/diri/{id}', [DiriController::class, 'update']);
 
 Route::post('/login', [AuthController::class, 'login']);

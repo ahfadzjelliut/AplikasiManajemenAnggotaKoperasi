@@ -11,7 +11,7 @@ function LoginForm() {
             email:"",
             password:"",
         });
-        const [error,setError] = useState("");
+        const [loginError,setLoginError] = useState("");
             const handleChange = (e)=>{
                 const {name,value}=e.target;
 
@@ -22,7 +22,7 @@ function LoginForm() {
             };
     const handleSubmit = async(e)=>{
             e.preventDefault();
-            setError("");
+            setLoginError("");
 
             try {
                 const response = await login(form);
@@ -31,15 +31,15 @@ function LoginForm() {
                     "user",
                     JSON.stringify(response.user)
                 );
+                alert("Berhasil Login");
 
                 nav("/dashboard");
             } catch(error){
-
-                setError(
-                error.response?.data?.message
-                ||
-                "Login gagal"
-            );
+                if (error.response) {
+                    setLoginError(error.response.data.message);
+                } else {
+                    setLoginError("Terjadi kesalahan pada server");
+                }
             }
         };
     return (
@@ -55,6 +55,11 @@ function LoginForm() {
                 <div>
                     <label>Password</label>
                     <Input name="password" type="password" value={form.password} onChange={handleChange} placeholder="Password Anda" required/>
+                    {loginError && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {loginError}
+                        </p>
+                    )}
                 </div>
                 <Button type="submit">Login</Button>
             </form>

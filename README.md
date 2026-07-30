@@ -8,6 +8,7 @@ koperasi, berikut beberapa fitur pada aplikasi:
 - Super Admin dapat mengelola dan memantau seluruh user level
 - Front Office dapat mempunyai anggota dan mengelola datanya
 - anggota dapat melihat data milik pribadi
+- terdapat realtime yang update
 - terdapat fitur pencarian
 
 
