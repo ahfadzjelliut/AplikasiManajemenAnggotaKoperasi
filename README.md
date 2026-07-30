@@ -52,11 +52,10 @@ Fitur yang berfungsi:
 
 -menambah,menghapus,mengubah, serta menampilkan anggota
 
--dan sebagainya
+-mengubah data diri
+
 
 Ada beberapa fitur eror :
 
 
--ubah data diri anggota masih belum berfungsi dengan baik
-
--dan sebagainya
+-list dari melihat anggota dari fo belum berfungsi
