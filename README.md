@@ -53,10 +53,10 @@ Fitur yang berfungsi:
 
 -menambah,menghapus,mengubah, serta menampilkan anggota
 
--mengubah data diri
+-mengubah data diri, melihat anggota tim
 
 
 Ada beberapa fitur eror :
 
 
--list dari melihat anggota dari fo belum berfungsi
+-feature pencarian tidak bisa
