@@ -55,8 +55,4 @@ Fitur yang berfungsi:
 
 -mengubah data diri, melihat anggota tim
 
-
-Ada beberapa fitur eror :
-
-
--feature pencarian tidak bisa
+-pencarian pada masing-masing user level
