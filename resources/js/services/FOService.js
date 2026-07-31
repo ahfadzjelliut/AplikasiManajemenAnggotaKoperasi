@@ -1,8 +1,12 @@
 import api from "./api";
 
 
-export const getFOs = async () => {
-    const response = await api.get("/fo");
+export const getFOs = async (search="") => {
+    const response = await api.get("/fo", {
+        params: {
+            search,
+        },
+    });
     return response.data;
 };
 
@@ -11,8 +15,12 @@ export const getFO = async (id) => {
     return response.data;
 };
 
-export const getAnggotaFO = async (id) => {
-    const response = await api.get(`/fo/anggota/${id}`);
+export const getAnggotaFO = async (search="",id) => {
+    const response = await api.get(`/fo/anggota/${id}`, {
+        params: {
+            search,
+        },
+    });
     return response.data;
 };
 

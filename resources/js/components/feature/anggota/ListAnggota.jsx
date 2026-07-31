@@ -37,13 +37,14 @@ const columns = [
 function ListAnggota() {
     const user = JSON.parse(localStorage.getItem("user"));
     const [data, setData] = useState([]);
+    const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         loadMember();
-    }, []);
+    }, [search]);
     const loadMember = async () => {
         try {
-            const response = await getTim(user.id);
+            const response = await getTim(search,user.id);
             console.log("response =", response);
             console.log("response.data =", response.data);
             setData(response.data ?? response);
@@ -67,6 +68,8 @@ function ListAnggota() {
                     Daftar Anggota dari
                 </h1>
                 <SearchBar
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     placeholder="Cari anggota..."
                 />
             </div>

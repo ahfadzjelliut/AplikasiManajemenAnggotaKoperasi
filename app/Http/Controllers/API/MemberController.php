@@ -84,19 +84,26 @@ class MemberController extends Controller
 
         return "AG".($angka+1);
     }
-    public function showingUser($id)
+    public function showingUser(Request $request, $id)
     {
         $members = Member::with(['anggota', 'fo'])
-        ->where('owner_fo',$id)
-        ->get();
+        ->where('owner_fo',$id);
 
-        if ($members->isEmpty()) {
+        if($request->filled('search')){
+            $members->whereHas('anggota',function($q) use ($request){
+                $q->where('nama','like','%'.$request->search . '%');
+            });
+        }
+
+        $data = $members->get();
+
+        if ($data->isEmpty()) {
             return response()->json([
                 'message' => 'Data tidak ditemukan.'
             ], 404);
         }
 
-        return response()->json($members);
+        return response()->json($data);
     }
 
 

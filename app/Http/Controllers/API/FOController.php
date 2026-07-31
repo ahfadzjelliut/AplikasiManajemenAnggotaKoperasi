@@ -11,14 +11,17 @@ use Illuminate\Validation\Rule;
 
 class FOController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $fo = User::where('role', 'fo')->get();
+        $fo = User::where('role', 'fo');
 
+        if($request->filled('search')){
+            $fo->where('nama','like','%'.$request->search . '%');
+        }
         return response()->json([
             'success' => true,
             'message' => 'Data FO berhasil diambil.',
-            'data' => $fo
+            'data' => $fo->get(),
         ]);
     }
 
@@ -108,11 +111,16 @@ class FOController extends Controller
         return response()->json($fo);
     }
 
-    public function showAnggotaFO($id){
+    public function showAnggotaFO(Request $request,$id){
         $member = Member::with(['anggota','fo'])
-        ->where('owner_fo',$id)
-        ->get();
+        ->where('owner_fo',$id);
 
-        return response()->json($member);
+        if($request->filled('search')){
+            $member->whereHas('user',function($q) use ($request){
+                $q->where('nama','like','%'.$request->search . '%');
+            });
+        }
+
+        return response()->json($member->get());
     }
 }

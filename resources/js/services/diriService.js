@@ -5,8 +5,12 @@ export const getDiri = async (id) => {
     return response.data;
 };
 
-export const getTim = async (id) => {
-    const response = await api.get(`/diri/tim/${id}`);
+export const getTim = async (search="",id) => {
+    const response = await api.get(`/diri/tim/${id}`, {
+        params: {
+            search,
+        },
+    });
     return response.data;
 };
 

@@ -8,7 +8,7 @@ use App\Http\Controllers\API\FOController;
 use App\Http\Controllers\API\DiriController;
 use App\Http\Controllers\API\AuthController;
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::get('/dashboard/{id}', [DashboardController::class, 'index']);
 
 Route::get('/fo/{id}', [FOController::class, 'show']);
 Route::get('/fo', [FOController::class, 'index']);

@@ -23,14 +23,15 @@ const columns = [
 function FOList() {
     const nav = useNavigate();
     const [data, setData] = useState([]);
+    const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         loadFO();
-    }, []);
+    }, [search]);
 
     const loadFO = async () => {
         try {
-            const response = await getFOs();
+            const response = await getFOs(search);
             setData(response.data ?? response);
         } catch (error) {
             console.error(error);
@@ -68,6 +69,8 @@ function FOList() {
                     Daftar Front Officer
                 </h1>
                 <SearchBar
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     placeholder="Cari Fo..."
                 />
             </div>

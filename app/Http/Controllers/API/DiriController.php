@@ -26,14 +26,19 @@ class DiriController extends Controller
         return response()->json($member);
     }
 
-    public function showDiriTim($id){
+    public function showDiriTim(Request $request, $id){
         $member = Member::where('user_id',$id)
         ->first();
         $team = Member::with('anggota')
-        ->where('owner_fo',$member->owner_fo)
-        ->get();
+        ->where('owner_fo',$member->owner_fo);
 
-        return response()->json($team);
+        if($request->filled('search')){
+            $team->whereHas('anggota',function($q) use ($request){
+                $q->where('nama','like','%'.$request->search . '%');
+            });
+        }
+
+        return response()->json($team->get());
     }
 
     // Mengubah data diri sendiri

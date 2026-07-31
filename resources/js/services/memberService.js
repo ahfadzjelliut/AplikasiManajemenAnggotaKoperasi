@@ -5,9 +5,10 @@ export const getMembers = async () => {
     return response.data;
 };
 
-export const getMember = async (ownerFo) => {
+export const getMember = async (search="",ownerFo) => {
     const response = await api.get(`/anggota/${ownerFo}`, {
         params: {
+            search,
             ownerfo: ownerFo,
         },
     });

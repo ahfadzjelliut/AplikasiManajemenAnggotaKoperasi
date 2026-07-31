@@ -41,13 +41,14 @@ function AnggotaFO() {
     const { id } = useParams();
     const nav = useNavigate();
     const [data, setData] = useState([]);
+    const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         loadMember();
-    }, []);
+    }, [search]);
     const loadMember = async () => {
         try {
-            const response = await getAnggotaFO(id);
+            const response = await getAnggotaFO(search,id);
             console.log("response =", response);
             console.log("response.data =", response.data);
             setData(response.data ?? response);
@@ -71,6 +72,8 @@ function AnggotaFO() {
                     Daftar Anggota
                 </h1>
                 <SearchBar
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     placeholder="Cari anggota..."
                 />
             </div>

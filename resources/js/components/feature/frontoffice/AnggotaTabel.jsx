@@ -41,13 +41,14 @@ function AnggotaTabel() {
     const user = JSON.parse(localStorage.getItem("user"));
     const nav = useNavigate();
     const [data, setData] = useState([]);
+    const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         loadMember();
-    }, []);
+    }, [search]);
     const loadMember = async () => {
         try {
-            const response = await getMember(user.id);
+            const response = await getMember(search,user.id);
             console.log("response =", response);
             console.log("response.data =", response.data);
             setData(response.data ?? response);
@@ -86,6 +87,8 @@ function AnggotaTabel() {
                     Daftar Anggota
                 </h1>
                 <SearchBar
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
                     placeholder="Cari Anggota..."
                 />
             </div>
